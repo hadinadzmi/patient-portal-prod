@@ -1,0 +1,193 @@
+﻿@page "/book-appointment"
+@using Blazored.LocalStorage
+@using System.Globalization
+@using System
+@using Telerik.Blazor.Components
+@using System.ComponentModel.DataAnnotations
+@inject ActivePageService ActivePageService
+@inherits McComponentBase
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IModalService Modal
+@inject IConfiguration Configuration
+@inject ILocalStorageService LocalStorage
+@inject ISyncLocalStorageService LocalStorageSync
+@inject IJSRuntime JSRuntime;
+@inject IStringLocalizer<Resource> Localizer
+@inject HttpClient _httpClient
+
+@if (IsBusy)
+{
+    <div class="overlay">
+        <McBusyIndicator />
+    </div>
+}
+
+@if (IsAllowed)
+{
+    <h3>Book your appointment now</h3>
+
+    @if (showSuccessModal || showErrorModal)
+    {
+        <div class="modal-overlay">
+            <div class="modal">
+                <h3>@(showSuccessModal ? "Success" : "Error")</h3>
+                <p>@modalMessage</p>
+                <div class="modal-actions">
+                    <button class="btn confirm @(isButtonEnabled ? "" : "disabled")" @onclick="CloseModal" disabled="@(isButtonEnabled ? false : true)">
+                        @(isButtonEnabled ? "Okay" : $"{countdown} seconds...")
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <EditForm Model="formModel" OnValidSubmit="HandleValidSubmit">
+        <fieldset>
+            <legend>Appointment Information</legend>
+            <div class="hospital-location">
+                <label for="hospitalLocation">Hospital Location: <span class="required">*</span></label>
+                <select id="hospitalLocation" name="hospitalLocation" @onchange="OnTenantChanged">
+                    <option value="" disabled selected>Please Select Hospital Location</option>
+                    @foreach (var tenant in tenantList)
+                    {
+                        <option value="@tenant.TenantId">@tenant.TenantName</option>
+                    }
+                </select>
+            </div>
+            <div class="flex-container">
+                <div class="department-selection">
+                    <label for="department">Specialty: <span class="required">*</span></label>
+                    <select id="department" name="department" @onchange="OnDepartmentChanged">
+                        <option value="" disabled selected>Please Select Specialty</option>
+                        @foreach (var dept in filteredDepartmentList)
+                        {
+                            <option value="@dept.DepartmentId" selected="@(dept.DepartmentId == selectedDepartmentId)">
+                                @dept.DepartmentName
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div>
+                    <label for="doctor">Doctor: <span class="required">*</span></label>
+                    <select id="doctor" name="doctor" @onchange="OnDoctorChanged">
+                        <option value="" disabled selected>Please Select Doctor</option>
+                        @foreach (var doc in filteredDoctorList)
+                        {
+                            <option value="@doc.ServiceUnitId" selected="@(doc.ServiceUnitId == selectedDoctorId)">
+                                @doc.ServiceUnitName
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="flex-container">
+                <div>
+                    <label for="preferredTime">Preferred Date: <span class="required">*</span></label>
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <button type="button" @onclick="PreviousMonth" disabled="@IsCurrentMonth()">&lt;</button>
+                            <span>@currentMonth.ToString("MMMM yyyy", CultureInfo.InvariantCulture)</span>
+                            <button type="button" @onclick="NextMonth">&gt;</button>
+                        </div>
+                        <div class="calendar-body">
+                            @foreach (var day in daysOfWeek)
+                            {
+                                <div class="calendar-day calendar-day-header">@day</div>
+                            }
+                            @* Calculate the number of empty cells before the first day of the month *@
+                            @{
+                                var firstDayOfMonth = new DateTime(currentMonth.Year, currentMonth.Month, 1);
+                                var emptyCells = (int)firstDayOfMonth.DayOfWeek;
+                            }
+                            @* Render empty cells *@
+                            @for (int i = 0; i < emptyCells; i++)
+                            {
+                                <div class="calendar-day empty"></div>
+                            }
+                            @* Render the actual days of the month *@
+                            @foreach (var day in GetDaysInMonth())
+                            {
+                                <div class="calendar-day @GetDayClass(day)" @onclick="async () => await SelectDate(day)" disabled="@IsPastDate(day) || unavailableDates.Contains(day.Date)">
+                                    @day.Day
+                                </div>
+                            }
+                        </div>
+                        <div class="selected-date">
+                            @if (selectedDate != DateTime.MinValue)
+                            {
+                                <span>Selected Date: @selectedDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture)</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <label for="preferredTime">Preferred Time: <span class="required">*</span></label>
+                    <div class="time-selection">
+                        @foreach (var time in GetTimeSlots())
+                        {
+                            var isBlocked = blockedTimeSlots.Contains(time);
+                            var isUnavailable = unavailableTimeSlots.Contains(time);
+
+                            bool shouldDisable = selectedDoctorId != null && (isUnavailable || isBlocked);
+
+                            <button type="button"
+                                    class="time-button @(selectedTime == time ? "selected" : "") @(isUnavailable ? "unavailable" : "") @(isBlocked ? "blocked" : "")"
+                                    @onclick="() => SelectTime(time)"
+                                    disabled="@shouldDisable">
+                                @time
+                            </button>
+                        }
+                    </div>
+                    <input type="hidden" id="preferredTime" name="preferredTime" value="@selectedTime" />
+                    <div class="legend">
+                        <div class="legend-item">
+                            <span class="legend-color available"></span> Available
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color unavailable"></span> Not Available
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color blocked"></span> Blocked
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Patient Information</legend>
+            <div>
+                <label>Payment Method: <span class="required">*</span></label>
+                <div class="radio-container">
+                    <input type="radio" id="selfPay" name="paymentMethod" value="selfPay" @onchange="OnPaymentMethodChanged" />
+                    <label for="selfPay">Self-Pay</label>
+                </div>
+                <div class="radio-container">
+                    <input type="radio" id="insurance" name="paymentMethod" value="insurance" @onchange="OnPaymentMethodChanged" />
+                    <label for="insurance">Guarantee Letter / Insurance</label>
+                </div>
+            </div>
+            @if (isInsuranceSelected)
+            {
+                <div>
+                    <label for="insuranceFile">Upload Guarantee Letter / Insurance Document:</label>
+                    <input type="file" id="insuranceFile" name="insuranceFile" />
+                </div>
+            }
+            <div>
+                <label for="additionalMessage">Additional Message (Optional):</label>
+                <textarea id="additionalMessage" name="additionalMessage" @bind="formModel.AdditionalMessage"></textarea>
+            </div>
+        </fieldset>
+
+        <div class="button-container">
+            <button type="submit" class="book-now-button">Book Now</button>
+            <button type="button" class="cancel-button" @onclick="CancelBooking">Cancel</button>
+        </div>
+    </EditForm>
+}
+else
+{
+    <h1>@Trans.GetStr(Localizer, "PAGE_NAV_NotLoggedIn", "You are not logged in. Redirecting to login page in 5 seconds...")</h1>
+}

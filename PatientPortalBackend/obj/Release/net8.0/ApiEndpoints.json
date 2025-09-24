@@ -1,0 +1,564 @@
+[
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.AllergyController",
+    "Method": "GetPatientAllergies",
+    "RelativePath": "api/Allergies/GetPatientAllergies",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceGetPatientAllergiesRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceGetPatientAllergiesResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAppointmentController",
+    "Method": "CancelPatientAppointment",
+    "RelativePath": "api/Appointments/CancelPatientAppointment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxDeletePatientAppointmentRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxDeletePatientAppointmentResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAppointmentController",
+    "Method": "CreatePatientAppointment",
+    "RelativePath": "api/Appointments/CreatePatientAppointment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceCreatePatientAppointmentRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceCreatePatientAppointmentResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAppointmentController",
+    "Method": "GetAppointmentDetailsByPatientCalendarEntryId",
+    "RelativePath": "api/Appointments/GetAppointmentDetailsByPatientCalendarEntryId",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceGetAppointmentDetailsByPatientCalendarEntryIdRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceGetAppointmentDetailsByPatientCalendarEntryIdResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAppointmentController",
+    "Method": "GetPatientAppointments",
+    "RelativePath": "api/Appointments/GetPatientAppointments",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceGetPatientAppointmentsRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceGetPatientAppointmentsResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAppointmentController",
+    "Method": "GetPatientCalendarEntryIdList",
+    "RelativePath": "api/Appointments/GetPatientCalendarEntryIdList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxReadAssignedResourcesToPatientCalendarEntryRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAppointmentController",
+    "Method": "GetPopupDetailsList",
+    "RelativePath": "api/Appointments/GetPopupDetailsList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxGetPopupsListRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxGetPopupsListResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAppointmentController",
+    "Method": "GetResourceDetailList",
+    "RelativePath": "api/Appointments/GetResourceDetailList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxGetResourceIdListRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxGetResourceIdListResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAppointmentController",
+    "Method": "TestGetResourceList",
+    "RelativePath": "api/Appointments/GetResourceList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceGetTenantDetailsRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceGetTenantDetailsResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAppointmentController",
+    "Method": "GetUserNameByUserId",
+    "RelativePath": "api/Appointments/GetUserNameByUserId",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceGetUsersDetailsByUserIdRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceGetUsersDetailsByUserIdResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAppointmentController",
+    "Method": "GetUsersByTenantId",
+    "RelativePath": "api/Appointments/GetUsersIdByTenantId",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceGetUsersIdByTenantRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceGetUsersIdByTenantResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAppointmentController",
+    "Method": "UpdatePatientAppointment",
+    "RelativePath": "api/Appointments/UpdatePatientAppointment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxUpdatePatientAppointmentRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxUpdatePatientAppointmentResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.AuthenticationController",
+    "Method": "GetConfirmationCode",
+    "RelativePath": "api/Authentication/GetConfirmationCode",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceGetConfirmationCodeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceGetConfirmationCodeResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.AuthenticationController",
+    "Method": "VerifyConfirmationCode",
+    "RelativePath": "api/Authentication/VerifyConfirmationCode",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceVerifyConfirmationCodeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceVerifyConfirmationCodeResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAllergyController",
+    "Method": "GetPatientAllergies",
+    "RelativePath": "api/MedimaxAllergy/GetPatientAllergies",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceGetPatientAllergiesRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceGetPatientAllergiesResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAuthenticationController",
+    "Method": "GetConfirmationCode",
+    "RelativePath": "api/MedimaxAuthentication/GetConfirmationCode",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceGetMaxConfirmationCodeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceGetMaxConfirmationCodeResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAuthenticationController",
+    "Method": "GetLoginDetails",
+    "RelativePath": "api/MedimaxAuthentication/GetLoginDetails",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceGetLoginDetailsRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceGetLoginDetailsResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAuthenticationController",
+    "Method": "SetPasswordAfterCode",
+    "RelativePath": "api/MedimaxAuthentication/SetPasswordAfterCode",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Controllers.MedimaxAuthenticationController\u002BSetPasswordAfterCodeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceBaseWebResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxAuthenticationController",
+    "Method": "VerifyConfirmationCode",
+    "RelativePath": "api/MedimaxAuthentication/VerifyConfirmationCode",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxVerifyConfirmationCodeRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxVerifyConfirmationCodeResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxDocumentController",
+    "Method": "DownloadPatientDocument",
+    "RelativePath": "api/MedimaxDocument/DownloadPatientDocument",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxDownloadPatientDocumentRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxDownloadPatientDocumentResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxDocumentController",
+    "Method": "GetPatientDocuments",
+    "RelativePath": "api/MedimaxDocument/GetDocumentTypes",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxGetPatientDocumentsRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxGetPatientDocumentsResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "PatientPortalBackend.Controllers.MedimaxDocumentController",
+    "Method": "GetPatientDocuments",
+    "RelativePath": "api/MedimaxDocument/GetPatientDocuments",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxGetPatientDocumentsRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "PatientPortalBackend.Models.ServiceMedimaxGetPatientDocumentsResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]

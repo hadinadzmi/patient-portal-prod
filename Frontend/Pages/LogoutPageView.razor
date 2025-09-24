@@ -1,0 +1,28 @@
+﻿@page "/logout"
+@using PatientPortalBackend.Models
+@inherits McComponentBase
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IModalService Modal
+@inject IConfiguration Configuration
+@inject ILocalStorageService LocalStorage
+@inject ISyncLocalStorageService LocalStorageSync
+@inject IJSRuntime JSRuntime;
+@inject IStringLocalizer<Resource> Localizer
+@inject HttpClient _httpClient
+
+<h1>@Trans.GetStr(Localizer, "PAGE_LOGOUT_Title", "Logging out...")</h1>
+
+@code
+{
+	protected override void OnInitialized()
+	{
+		//To prevent cookie restore
+	}
+
+	protected override async Task OnInitializedAsync()
+	{
+		await GlobalData.ResetUserData(LocalStorage);
+		NavigationManager.NavigateTo("/", false, true);
+	}
+}

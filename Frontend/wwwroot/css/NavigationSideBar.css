@@ -1,0 +1,120 @@
+﻿/*NAV SIDE*/
+.home-app {
+    display: flex;
+    min-height: 10vh; /* Ensure the container takes full height */
+    background-color: #F5F6F7;
+}
+
+.home-nav-menu {
+    width: 250px; /* Increase width */
+    padding-top: 1rem;
+    background-color: #F5F6F7;
+    height: 98.5vh; /* Ensure the sidebar takes full height */
+    padding-top: 0;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items to the start */
+    align-items: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 0 50px 50px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Add z-index to ensure it appears above other elements */
+}
+
+.company-icon {
+    text-align: center;
+    padding: 1rem 0;
+    width: 100%;
+}
+
+.company-icon img {
+    max-width: 80%;
+    height: auto;
+}
+
+.nav-links-container {
+    background-color: #FFFFFF;
+    width: 95%;
+    border-radius: 0 50px 50px 0;
+    box-shadow: none;
+    padding: 2rem 0;
+    flex-grow: 1; /* Allow the container to grow and take available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items to the start */
+}
+
+.nav-link {
+    display: block;
+    color: #484C52;
+    padding: 1rem; /* Adjusted padding for better spacing */
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    border: none; /* Ensure buttons have no border */
+    background: none; /* Ensure buttons have no background */
+    width: 100%; /* Ensure buttons take full width */
+    cursor: pointer; /* Change cursor to pointer */
+    margin-bottom: 3rem; /* Add margin to create space between links */
+    margin-top: 2rem; /* Add margin to create space between links */
+}
+
+
+.nav-link-active {
+    color: #37A15B;
+}
+
+.iconify {
+    display: block;
+    margin: auto;
+    font-size: 24px;
+}
+
+.nav-text {
+    text-align: center;
+    margin-top: 5px;
+}
+
+.home-main-content {
+    flex-grow: 1;
+    padding: 2rem;
+}
+
+/* Hide company icon on mobile */
+@media (max-width: 768px) {
+    .company-icon {
+        display: none;
+    }
+
+    .home-nav-menu {
+        width: 100%;
+        height: 60px;
+        position: fixed;
+        bottom: 0;
+        top: auto;
+        flex-direction: row;
+        justify-content: space-around;
+        border-radius: 20px 20px 0 0; /* Add rounded corners */
+        box-shadow: 0 -8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-links-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 0;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+    .nav-link {
+        padding: 0.5rem; /* Adjusted padding for mobile */
+        font-size: 12px; /* Adjusted font size for mobile */
+        margin-top: 0;
+    }
+
+    .iconify {
+        font-size: 16px; /* Adjusted icon size for mobile */
+    }
+}

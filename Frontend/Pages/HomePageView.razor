@@ -1,0 +1,73 @@
+﻿@using Blazored.LocalStorage
+
+@inject ActivePageService ActivePageService
+@inherits McComponentBase
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IModalService Modal
+@inject IConfiguration Configuration
+@inject ILocalStorageService LocalStorage
+@inject ISyncLocalStorageService LocalStorageSync
+@inject IJSRuntime JSRuntime;
+@inject IStringLocalizer<Resource> Localizer
+@inject HttpClient _httpClient
+
+@if (IsBusy)
+{
+    <McBusyIndicator />
+}
+
+@if (IsAllowed)
+{
+    <div class="home-app">
+        <main class="home-main-content">
+            <h1>Welcome @($"{GlobalData.PatientName}") to the <span class="patient-portal">Patient Portal</span></h1>
+            <h2>By SENA Healthcare</h2>
+            <div>
+                <div class="info-boxes-row">
+                    <a @onclick='() => NavigationManager.NavigateTo("/book-appointment")' class="info-box-one">
+                        <img src="/ICON/image-1.png" alt="Book Appointment Icon" style="width: 50px; height: 50px;">
+                        <h3>BOOK APPOINTMENT</h3>
+                        <!-- Additional content for My Queue -->
+                    </a>
+                    <a @onclick='() => SetActivePage("Queue")' class="info-box-two">
+                        <img src="/ICON/image-2.png" alt="My Queue Icon" style="width: 50px; height: 50px;">
+                        <h3>My Queue</h3>
+                        <!-- Additional content for My Queue -->
+                    </a>
+                    <a @onclick='() => SetActivePage("Documents")' class="info-box-three">
+                        <img src="/ICON/image-4.png" alt="My Documents Icon" style="width: 50px; height: 50px;">
+                        <h3>My Documents</h3>
+                        <!-- Additional content for My Documents -->
+                    </a>
+                </div>
+
+                <div class="engaging-content">
+                    <div class="content-block">
+                        <h3>Coming Soon</h3>
+                        <!-- Content for latest news -->
+                        @* <iframe src="https://metropolitanocr.com/en/iframe-promotions/" frameborder="0" style="width:100%; height:300px;"></iframe> *@
+                    </div>
+                    <div class="content-block">
+                        <h3>Coming Soon</h3>
+                        <!-- Content for health tips -->
+                        @* <iframe src="https://metropolitanocr.com/en/iframe-promotions/" frameborder="0" style="width:100%; height:300px;"></iframe> *@
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+}
+else
+{
+    <h1>@Trans.GetStr(Localizer, "PAGE_NAV_NotLoggedIn", "You are not logged in. Redirecting to login page in 5 seconds...")</h1>
+}
+
+@* @if (IsAllowed)
+{
+    
+}
+else
+{
+    <h1>@Trans.GetStr(Localizer, "PAGE_NAV_NotLoggedIn", "You are not logged in. Redirecting to login page in 5 seconds...")</h1>
+} *@

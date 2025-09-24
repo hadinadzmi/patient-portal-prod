@@ -1,0 +1,79 @@
+﻿@page "/calendar/overview"
+@page "/calendar/index"
+
+<div class="demo-wrap p-sm">
+    <div class="calendar-container">
+        <h4>Month View</h4>
+        <TelerikCalendar Date="@StartDate"
+                         Min="@Min"
+                         Max="@Max"
+                         View="CalendarView.Month"
+                         SelectionMode="@CalendarSelectionMode.Multiple"
+                         ShowWeekNumbers="true"
+                         class="custom-calendar">
+        </TelerikCalendar>
+    </div>
+    <div class="calendar-container">
+        <h4>Decade View</h4>
+        <TelerikCalendar Min="@Min"
+                         Max="@Max"
+                         View="CalendarView.Decade"
+                         BottomView="@CalendarView.Year"
+                         class="custom-calendar">
+        </TelerikCalendar>
+    </div>
+</div>
+
+@code {
+    private DateTime StartDate = new DateTime(2019, 5, 2);
+    private DateTime Min = DateTime.Now;
+    private DateTime Max = new DateTime(2025, 12, 31);
+}
+
+<style>
+    .demo-wrap {
+        display: inline-flex;
+        flex-wrap: wrap;
+    }
+
+    .calendar-container {
+        margin-right: 5em;
+        margin-bottom: 2em;
+    }
+
+    .custom-calendar {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 1em;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+        .custom-calendar .k-calendar-header {
+            background-color: #f8f9fa;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .custom-calendar .k-calendar-body {
+            background-color: #fff;
+        }
+
+        .custom-calendar .k-calendar-week-number {
+            background-color: #e9ecef;
+            color: #495057;
+        }
+
+        .custom-calendar .k-calendar-cell {
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+            .custom-calendar .k-calendar-cell:hover {
+                background-color: #e2e6ea;
+            }
+
+            .custom-calendar .k-calendar-cell.k-state-selected {
+                background-color: #007bff;
+                color: #fff;
+            }
+</style>

@@ -1,0 +1,89 @@
+﻿@* @page "/login" *@
+
+@page "/welcome-widvbirkr$R4=fiow"
+@* @page "/"  *@
+@using System.ComponentModel.DataAnnotations
+@using Blazored.LocalStorage
+
+@inherits McComponentBase
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IModalService Modal
+@inject IConfiguration Configuration
+@inject ILocalStorageService LocalStorage
+@inject ISyncLocalStorageService LocalStorageSync
+@inject IJSRuntime JSRuntime;
+@inject IStringLocalizer<Resource> Localizer
+@inject HttpClient _httpClient
+
+@if (IsBusy)
+{
+    <div class="overlay">
+        <McBusyIndicator />
+    </div>
+}
+
+@* --- BEGIN: Temporary Overlay for Announcement --- *@
+<div class="coming-soon-overlay">
+    <div class="coming-soon-content">
+        <img src="/LOGO/SENA - V2 Logo5.png" alt="Company Logo" class="coming-soon-logo" />
+        <h2>Welcome to <strong>Patient Portal</strong></h2>
+        <div class="marquee-container">
+            <div class="marquee">
+                Coming Soon! &nbsp; Coming Soon! &nbsp; Coming Soon! &nbsp; Coming Soon! &nbsp; Coming Soon!
+            </div>
+        </div>
+    </div>
+</div>
+@* --- END: Temporary Overlay for Announcement --- *@
+@* 
+@if (showErrorModal)
+{
+    <div class="modal-overlay">
+        <div class="modal">
+            <h3>Error</h3>
+            <p>@modalMessage</p>
+            <div class="modal-actions">
+                <button class="btn confirm" @onclick="CloseModal">Okay</button>
+            </div>
+        </div>
+    </div>
+}
+ *@
+@* <div class="login-page">
+    <div class="container">
+        <div class="icon-container">
+            <img src="/LOGO/SENA - V2 Logo5.png" alt="Company Icon">
+        </div>
+        <div class="login-container">
+            <div class="form-group userId-container">
+                <TelerikTextBox id="userId" class="form-control rounded-textbox"
+                                @bind-Value="@PatientNRIC"
+                                placeholder="Enter your NRIC / Passport Number"
+                                autocomplete="off" />
+                <span class="user-icon">
+                    <i class="iconify" data-icon="mdi:account" data-inline="false"></i>
+                </span>
+            </div>
+
+            <div class="form-group password-container">
+                <input id="password" class="form-control" @bind="PatientPaswrd" placeholder="Enter your password" type="@(isPasswordVisible ? "text" : "password")" autocomplete="off" />
+                <span class="toggle-password" @onclick="TogglePasswordVisibility">
+                    <i class="iconify" data-icon="@(isPasswordVisible ? "mdi:eye-off" : "mdi:eye")" data-inline="false"></i>
+                </span>
+                <a href="/forgot-password" class="forget-password-link">Forget Password?</a>
+            </div>
+
+            <button type="button" class="btn btn-login" @onclick="HandleValidSubmit">LOGIN</button>
+            <div class="additional-links">
+                <a href="/first-time-login" class="additional-link">1st Time Login?</a>
+                <a href="/requestappointment" class="additional-link">Request an Appointment?</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+
+</style>
+ *@

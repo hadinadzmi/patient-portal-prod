@@ -1,0 +1,55 @@
+﻿@using Blazored.LocalStorage
+
+@inject ActivePageService ActivePageService
+@inherits McComponentBase
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IModalService Modal
+@inject IConfiguration Configuration
+@inject ILocalStorageService LocalStorage
+@inject ISyncLocalStorageService LocalStorageSync
+@inject IJSRuntime JSRuntime;
+@inject IStringLocalizer<Resource> Localizer
+@inject HttpClient _httpClient
+
+@code {
+    private string customerObj = string.Empty;
+
+    private string patientId = string.Empty;
+
+    private string IframeSrc => $"https://que04-my.qbe.ee/sena-segamat/search?route=j&customer_obj={customerObj}&patient_id={patientId}";
+    
+    protected override async Task OnInitializedAsync()
+    {
+        await CheckAllowed(LocalStorage);
+
+        if (!IsAllowed)
+        {
+            await Task.Delay(3000);
+            NavigationManager.NavigateTo("/", false, true);
+        }
+        customerObj = GlobalData.PatientNRIC;
+    }
+}
+
+@if (IsBusy)
+{
+    <McBusyIndicator />
+}
+
+@if (IsAllowed)
+{
+    <div class="home-app">
+        <main class="queue-main-content">
+            @* <h1>Welcome @($"{GlobalData.PatientName}!") to the <span class="patient-portal">Patient Portal</span></h1>
+        <h1> Your NRIC: <span class="patient-portal">@($"{GlobalData.PatientNRIC}!")</span></h1> *@
+            <div class="queue-iframe-container">
+                <iframe src="@IframeSrc"></iframe>
+            </div>
+        </main>
+    </div>
+}
+else
+{
+    <h1>@Trans.GetStr(Localizer, "PAGE_NAV_NotLoggedIn", "You are not logged in. Redirecting to login page in 5 seconds...")</h1>
+}

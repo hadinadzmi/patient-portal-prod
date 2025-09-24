@@ -1,0 +1,5 @@
+{
+	"ConnectionStrings": {
+		"MedCubes_PatientPortalBackendEntities": "Server=.\\sqlexpress;Database=MedCubes;User Id=medcubesapp;Password=medcubes;TrustServerCertificate=Yes"
+	}
+}

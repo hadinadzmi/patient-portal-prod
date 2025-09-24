@@ -1,0 +1,462 @@
+﻿.document-link, .document-section h2 {
+    color: #37A15B; /* Initial text color */
+    text-decoration: none;
+    transition: color 0.3s ease; /* Transition effect for color change */
+}
+
+.document-icon {
+    width: 50px; /* Adjusted size for a more balanced appearance */
+    height: auto;
+    vertical-align: middle; /* Keeps the icon aligned with the text */
+    margin-right: 12px; /* Adds a bit more space between the icon and the title for clarity */
+}
+
+.document-section h2 {
+    display: inline; /* Ensures the icon and the title are on the same line */
+}
+
+.document-section {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: #ffffff; /* Default background color */
+}
+
+    .document-section:hover {
+        transform: scale(1.02); /* Slightly enlarges the section */
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Enhances the shadow for depth */
+        background-color: #37A15B; /* Changes background color for visual feedback */
+    }
+
+        .document-section:hover .document-link, .document-section:hover h2 {
+            color: #ffffff; /* Changes the text color to white on hover */
+        }
+
+.documents-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 70px;
+    margin: 0 auto;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.document-link:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .documents-container {
+        grid-template-columns: 1fr; /* Single column layout for tablets and smaller screens */
+        padding: 20px;
+    }
+
+    .document-section {
+        padding: 15px;
+    }
+
+    .document-icon {
+        width: 40px; /* Smaller icon size for smaller screens */
+        margin-right: 8px;
+    }
+
+    .document-section h2 {
+        font-size: 1.2em; /* Adjust font size for better readability on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .documents-container {
+        padding: 10px;
+    }
+
+    .document-section {
+        padding: 10px;
+    }
+
+    .document-icon {
+        width: 30px; /* Even smaller icon size for mobile screens */
+        margin-right: 5px;
+    }
+
+    .document-section h2 {
+        font-size: 1em; /* Further adjust font size for mobile screens */
+    }
+}
+
+/*DOCUMENT CONTENT*/
+.document-link, .document-section h2 {
+    color: #37A15B; /* Initial text color */
+    text-decoration: none;
+    transition: color 0.3s ease; /* Transition effect for color change */
+}
+
+.document-icon {
+    width: 50px; /* Adjusted size for a more balanced appearance */
+    height: auto;
+    vertical-align: middle; /* Keeps the icon aligned with the text */
+    margin-right: 12px; /* Adds a bit more space between the icon and the title for clarity */
+}
+
+.document-section h2 {
+    display: inline; /* Ensures the icon and the title are on the same line */
+}
+
+.document-section {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    background-color: #ffffff; /* Default background color */
+}
+
+    .document-section:hover {
+        transform: scale(1.02); /* Slightly enlarges the section */
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Enhances the shadow for depth */
+        background-color: #37A15B; /* Changes background color for visual feedback */
+    }
+
+        .document-section:hover .document-link, .document-section:hover h2 {
+            color: #ffffff; /* Changes the text color to white on hover */
+        }
+
+.documents-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+    padding: 70px;
+    margin: 0 auto;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.document-link:hover {
+    transform: translateY(-2px);
+    transition: transform 0.2s ease;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .documents-container {
+        grid-template-columns: 1fr; /* Single column layout for tablets and smaller screens */
+        padding: 20px;
+    }
+
+    .document-section {
+        padding: 15px;
+    }
+
+    .document-icon {
+        width: 40px; /* Smaller icon size for smaller screens */
+        margin-right: 8px;
+    }
+
+    .document-section h2 {
+        font-size: 1.2em; /* Adjust font size for better readability on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .documents-container {
+        padding: 10px;
+    }
+
+    .document-section {
+        padding: 10px;
+    }
+
+    .document-icon {
+        width: 30px; /* Even smaller icon size for mobile screens */
+        margin-right: 5px;
+    }
+
+    .document-section h2 {
+        font-size: 1em; /* Further adjust font size for mobile screens */
+    }
+}
+
+/* Additional styles for document-content */
+.document-content {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+    .document-content h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #333;
+    }
+
+    .document-content p {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    .document-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+
+        .document-content table th,
+        .document-content table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .document-content table th {
+            background-color: #f2f2f2;
+            color: #333;
+        }
+
+        .document-content table td button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            .document-content table td button:hover {
+                background-color: #0056b3;
+            }
+
+    .document-content button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+        .document-content button:hover {
+            background-color: #0056b3;
+        }
+
+/* Media Queries for document-content */
+@media (max-width: 768px) {
+    .document-content {
+        padding: 15px;
+    }
+
+        .document-content h2 {
+            font-size: 20px;
+        }
+
+        .document-content p {
+            font-size: 14px;
+        }
+
+        .document-content table th,
+        .document-content table td {
+            padding: 6px;
+        }
+
+            .document-content table td button {
+                padding: 4px 8px;
+            }
+
+        .document-content button {
+            padding: 8px 16px;
+        }
+}
+
+@media (max-width: 480px) {
+    .document-content {
+        padding: 10px;
+    }
+
+        .document-content h2 {
+            font-size: 18px;
+        }
+
+        .document-content p {
+            font-size: 12px;
+        }
+
+        .document-content table th,
+        .document-content table td {
+            padding: 4px;
+        }
+
+            .document-content table td button {
+                padding: 3px 6px;
+            }
+
+        .document-content button {
+            padding: 6px 12px;
+        }
+}
+
+/* Styles for Discharge Summary */
+.discharge-summary-content {
+    background-color: #e0f7fa;
+    border: 1px solid #00acc1;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Styles for Allergies */
+.allergies-content {
+    background-color: #fff3e0;
+    border: 1px solid #fb8c00;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Styles for Lab Results */
+.lab-results-content {
+    background-color: #e8f5e9;
+    border: 1px solid #43a047;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Styles for Imaging Reports */
+.imaging-reports-content {
+    background-color: #f3e5f5;
+    border: 1px solid #8e24aa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Styles for Outstanding Bills */
+.outstanding-bills-content {
+    background-color: #fbe9e7;
+    border: 1px solid #d84315;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+    .documents-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+    .document-section {
+        padding: 15px;
+    }
+
+    .document-icon {
+        width: 40px;
+        margin-right: 8px;
+    }
+
+    .document-section h2 {
+        font-size: 1.2em;
+    }
+
+    .document-content {
+        padding: 15px;
+    }
+
+        .document-content h2 {
+            font-size: 20px;
+        }
+
+        .document-content p {
+            font-size: 14px;
+        }
+
+        .document-content table th,
+        .document-content table td {
+            padding: 6px;
+        }
+
+            .document-content table td button {
+                padding: 4px 8px;
+            }
+
+        .document-content button {
+            padding: 8px 16px;
+        }
+}
+
+@media (max-width: 480px) {
+    .documents-container {
+        padding: 10px;
+    }
+
+    .document-section {
+        padding: 10px;
+    }
+
+    .document-icon {
+        width: 30px;
+        margin-right: 5px;
+    }
+
+    .document-section h2 {
+        font-size: 1em;
+    }
+
+    .document-content {
+        padding: 10px;
+    }
+
+        .document-content h2 {
+            font-size: 18px;
+        }
+
+        .document-content p {
+            font-size: 12px;
+        }
+
+        .document-content table th,
+        .document-content table td {
+            padding: 4px;
+        }
+
+            .document-content table td button {
+                padding: 3px 6px;
+            }
+
+        .document-content button {
+            padding: 6px 12px;
+        }
+}
+
+li {
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    word-break: break-word;
+}
+
+    li .btn-download {
+        margin-left: 0;
+        margin-top: 6px;
+    }
+
+ul {
+    padding-left: 1.5em;
+}
+
+.btn-download:active {
+    transform: scale(0.97);
+}
+
+@media (max-width: 480px) {
+    .btn-download {
+        padding: 10px 18px;
+        font-size: 1rem;
+    }
+}

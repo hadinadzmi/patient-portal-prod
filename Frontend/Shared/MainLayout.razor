@@ -1,0 +1,18 @@
+﻿@inherits LayoutComponentBase
+
+@Body
+
+@code
+{
+	protected override void OnInitialized()
+	{
+		GlobalData.OnRefresh += OnRefresh;
+		base.OnInitialized();
+	}
+
+	private void OnRefresh(object? sender, EventArgs e)
+	{
+		//      Console.WriteLine("GlobalData - OnRefresh");
+		//StateHasChanged();
+	}
+}

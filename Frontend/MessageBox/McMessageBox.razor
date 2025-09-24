@@ -1,0 +1,51 @@
+﻿@inject IJSRuntime JSRuntime;
+@inject IStringLocalizer<Resource> Localizer
+
+@{
+    var cls = "MsgDefaultPosition";
+    if (!String.IsNullOrWhiteSpace(Class))
+    {
+        cls += " " + Class;
+    }
+}
+
+<div class="McMessageBoxDefault">
+
+    <h3 class="McMessageBoxHeader">@DialogTitle</h3>
+
+    <div class="McMessageBoxBody">
+
+        <img class="McMessageBoxImage" id="infoBtn" src=@IconName width="80" height="80" />
+        <span class="linebreak"
+              style="display: block; overflow: auto; height: 160px">@Text</span>
+        </div>
+
+        <div class="McMessageBoxFooter">
+            @if (@Buttons == MessageBoxButtons.Ok || @Buttons == MessageBoxButtons.OkCancel)
+            {
+                <button class="btn-primary"
+                        @onclick="BtnOk_OnClick">
+                    @Trans.GetStr(Localizer, "MSGBOX_OK", "OK")
+                </button>
+            }
+            @if (@Buttons == MessageBoxButtons.YesNoCancel || @Buttons == MessageBoxButtons.YesNo)
+            {
+                  <button class="btn-primary"
+                            @onclick="BtnYes_OnClick">
+                      @Trans.GetStr(Localizer, "MSGBOX_Yes", "Yes")
+                    </button>
+                    <button class="btn-secondary"
+                            @onclick="BtnNo_OnClick">
+                        @Trans.GetStr(Localizer, "MSGBOX_No", "No")
+                    </button>
+            }
+
+            @if (@Buttons == MessageBoxButtons.OkCancel || @Buttons == MessageBoxButtons.YesNoCancel)
+            {
+                <button class="btn-secondary"
+                        @onclick="BtnNo_OnClick">
+                    @Trans.GetStr(Localizer, "MSGBOX_Cancel", "Cancel")
+                </button>
+            }
+        </div>
+    </div>

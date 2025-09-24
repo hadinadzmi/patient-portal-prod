@@ -1,0 +1,116 @@
+﻿@page "/first-time-login"
+
+<h3>First Time Login</h3>
+
+@if (IsBusy)
+{
+    <div class="overlay">
+        <McBusyIndicator />
+    </div>
+}
+
+<div class="container2">
+    <div class="left-side">
+        <h4>Create New Password</h4>
+        <div class="slide-container">
+            <div class="slide-content" style="transform: @(isOTPVerified ? "translateX(-200%)" : isOTPSent ? "translateX(-100%)" : "translateX(0)")">
+                <div>
+                    <h2>OTP Verification</h2>
+                    <p>Enter phone number to send one time Password</p>
+                    <div class="phoneInput">
+                        <label class="text" for="patientId">IC/Passport Number</label>
+                        <input class="input" name="patientId" placeholder="Enter IC/Passport Number" type="text" @bind="patientId" autocomplete="off" />
+                        <label class="text" for="input">Phone Number</label>
+                        <input class="input" name="input" placeholder="+60110101010" type="text" @bind="MobileNumber" autocomplete="off" />
+                        <button @onclick="SendOTP">REQUEST OTP</button>
+                    </div>
+                </div>
+                <div>
+                    @if (isOTPSent)
+                    {
+                        <div>
+                            <label for="otp" class="otp-label">Enter code that we have sent to your phone number:</label>
+                            <div class="otpInput">
+                                <input type="text" maxlength="1" @bind="otp1" @ref="otp1Ref" @oninput="@(e => JS.InvokeVoidAsync("otp.moveToNext", otp1Ref, otp2Ref))" @onkeydown="@(e => HandleBackspace(e, otp1Ref, null))" @onkeypress="@(e => JS.InvokeVoidAsync("otp.allowOnlyNumbers", e))" />
+                                <input type="text" maxlength="1" @bind="otp2" @ref="otp2Ref" @oninput="@(e => JS.InvokeVoidAsync("otp.moveToNext", otp2Ref, otp3Ref))" @onkeydown="@(e => HandleBackspace(e, otp2Ref, otp1Ref))" @onkeypress="@(e => JS.InvokeVoidAsync("otp.allowOnlyNumbers", e))" />
+                                <input type="text" maxlength="1" @bind="otp3" @ref="otp3Ref" @oninput="@(e => JS.InvokeVoidAsync("otp.moveToNext", otp3Ref, otp4Ref))" @onkeydown="@(e => HandleBackspace(e, otp3Ref, otp2Ref))" @onkeypress="@(e => JS.InvokeVoidAsync("otp.allowOnlyNumbers", e))" />
+                                <input type="text" maxlength="1" @bind="otp4" @ref="otp4Ref" @oninput="@(e => JS.InvokeVoidAsync("otp.moveToNext", otp4Ref, otp5Ref))" @onkeydown="@(e => HandleBackspace(e, otp4Ref, otp3Ref))" @onkeypress="@(e => JS.InvokeVoidAsync("otp.allowOnlyNumbers", e))" />
+                                <input type="text" maxlength="1" @bind="otp5" @ref="otp5Ref" @oninput="@(e => JS.InvokeVoidAsync("otp.moveToNext", otp5Ref, otp6Ref))" @onkeydown="@(e => HandleBackspace(e, otp5Ref, otp4Ref))" @onkeypress="@(e => JS.InvokeVoidAsync("otp.allowOnlyNumbers", e))" />
+                                <input type="text" maxlength="1" @bind="otp6" @ref="otp6Ref" @oninput="@(e => JS.InvokeVoidAsync("otp.moveToNext", otp6Ref, otp6Ref))" @onkeydown="@(e => HandleBackspace(e, otp6Ref, otp5Ref))" @onkeypress="@(e => JS.InvokeVoidAsync("otp.allowOnlyNumbers", e))" />
+                            </div>
+                            @if (!string.IsNullOrEmpty(modalMessage))
+                            {
+                                <div class="error-message">@modalMessage</div>
+                            }
+                            <button class="verify-otp-button" @onclick="VerifyOTP">Verify OTP</button>
+                        </div>
+                    }
+                </div>
+                <div>
+                    @if (isOTPVerified)
+                    {
+                        <div class="passwordInput">
+                            <label class="text" for="newPassword">New Password</label>
+                            <input class="input" type="password" id="newPassword" @bind="newPassword" />
+                        </div>
+                        <div class="passwordInput">
+                            <label class="text" for="confirmPassword">Confirm Password</label>
+                            <input class="input" type="password" id="confirmPassword" @bind="confirmPassword" />
+                        </div>
+                        <div class="passwordInput">
+                            <button @onclick="CreatePassword">Create Password</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @if (showErrorModal)
+        {
+            <div class="modal-overlay">
+                <div class="modal">
+                    <p>@modalMessage</p>
+                    <button class="btn confirm" @onclick="CloseModal">Okay</button>
+                </div>
+            </div>
+        }
+
+        @if (showSuccessModal)
+        {
+            <div class="modal-overlay">
+                <div class="modal">
+                    <p>@successMessage</p>
+                    <button class="btn confirm" @onclick="OnSuccessModalOk">Okay</button>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="right-side">
+        <img src="./IMAGES/OTP Image.png" alt="Placeholder Image" />
+    </div>
+</div>
+
+<style>
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .modal-content {
+        background: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        min-width: 300px;
+        box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+        text-align: center;
+    }
+</style>

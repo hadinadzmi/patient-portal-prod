@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Portal</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link href="css/Login.css" rel="stylesheet" />
+    <link href="css/Home.css" rel="stylesheet" />
+    <link href="css/Appointments.css" rel="stylesheet" />
+    <link href="css/Documents.css" rel="stylesheet" />
+    <link href="css/UserForgotPass.css" rel="stylesheet" />
+    <link href="css/PatientQueueNum.css" rel="stylesheet" />
+    <link href="css/RequestAppointment.css" rel="stylesheet" />
+    <link href="css/CalenderPeaker.css" rel="stylesheet" />
+    <link href="css/FirstTimeLogin.css" rel="stylesheet" />
+    <link href="css/NavigationSideBar.css" rel="stylesheet" />
+    <link href="css/UserProfileSetting.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app" identifier="NN1d7ydPRND">
+        <svg class="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text"></div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="JS/OtpSetting.js"></script>
+    <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
+
+    <!--NEW-->
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+    <script src="_content/telerik.ui.for.blazor/js/telerik-blazor.js"></script>
+    <script src="_content/Blazored.Modal/blazored.modal.js"></script>
+
+    <link rel="stylesheet" href="_content/Telerik.UI.for.Blazor/css/kendo-theme-default/all.css" />
+    <script src="_content/Telerik.UI.for.Blazor/js/telerik-blazor.js"></script>
+</body>
+
+</html>

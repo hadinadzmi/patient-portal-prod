@@ -1,0 +1,89 @@
+﻿.info-boxes-row {
+    display: flex;
+    gap: 20px; /* Adds some space between the elements */
+    justify-content: space-between; /* Ensure even spacing */
+    flex-wrap: nowrap; /* Prevent items from wrapping to the next line */
+}
+
+.info-box-one, .info-box-two, .info-box-three {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    text-decoration: none; /* Remove underline from links */
+    color: #484C52; /* Consistent text color */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 30%; /* Set a fixed width for consistency */
+}
+
+    .info-box-one img, .info-box-two img, .info-box-three img {
+        width: 80px; /* Increase size */
+        height: 80px; /* Increase size */
+        margin-bottom: 1rem; /* Add some space below the image */
+    }
+
+    .info-box-one:hover, .info-box-two:hover, .info-box-three:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .info-box-one h3, .info-box-two h3, .info-box-three h3 {
+        margin: 0;
+        color: #37A15B; /* Consistent with other headings */
+        font-size: 1.25rem;
+    }
+
+.engaging-content {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+}
+
+    .engaging-content .content-block {
+        flex: 1;
+        margin: 0 1rem;
+        padding: 1rem;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border-radius: 10px;
+    }
+
+.patient-portal {
+    color: #37A15B;
+}
+
+h1, h2 {
+    color: #484C52;
+}
+
+/* Media Queries for Mobile Responsiveness */
+/* Existing CSS code */
+
+@media (max-width: 768px) {
+    .info-boxes-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .info-box-one, .info-box-two, .info-box-three {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .engaging-content {
+        display: none; /* Hide engaging content on mobile */
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+    }
+}

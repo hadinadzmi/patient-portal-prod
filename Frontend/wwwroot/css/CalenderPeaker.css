@@ -1,0 +1,103 @@
+﻿.calendar {
+    display: inline-block;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: #e4ffed;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 9rem;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+    .calendar-header button {
+        background: none;
+        border: none;
+        font-size: 1.5em;
+        cursor: pointer;
+        color: #333;
+    }
+
+.calendar-body {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-day {
+    width: 50px; /* Increased width */
+    height: 50px; /* Increased height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 1.2em; /* Increased font size */
+}
+
+/*.calendar-day:hover {
+        background-color: #e0e0e0;
+    }*/
+
+.calendar-day-header {
+    font-weight: bold;
+    color: #555;
+}
+
+.selected {
+    background-color: #326b2e; /* Change this color to your desired background color */
+    color: white;
+}
+
+.past {
+    color: #bbb;
+    cursor: not-allowed;
+}
+
+.selected-date {
+    margin-top: 15px;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #333;
+    text-align: center; /* Center the selected date */
+}
+
+/* Mobile view adjustments */
+@media (max-width: 600px) {
+    .calendar {
+        padding: 10px;
+        font-size: 0.9em;
+        margin-bottom: 0;
+    }
+
+    .calendar-header {
+        font-size: 1em;
+    }
+
+        .calendar-header button {
+            font-size: 1.2em;
+        }
+
+    .calendar-body {
+        grid-template-columns: repeat(7, 1fr);
+        gap: 3px;
+    }
+
+    .calendar-day {
+        width: 40px; /* Adjusted width for mobile */
+        height: 40px; /* Adjusted height for mobile */
+        font-size: 1em; /* Adjusted font size for mobile */
+    }
+
+    .selected-date {
+        font-size: 0.8em;
+    }
+}

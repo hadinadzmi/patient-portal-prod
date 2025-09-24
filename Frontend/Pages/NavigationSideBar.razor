@@ -1,0 +1,82 @@
+﻿@page "/senalogin"
+@using Blazored.LocalStorage
+
+@inject ActivePageService ActivePageService
+@inherits McComponentBase
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IModalService Modal
+@inject IConfiguration Configuration
+@inject ILocalStorageService LocalStorage
+@inject ISyncLocalStorageService LocalStorageSync
+@inject IJSRuntime JSRuntime;
+@inject IStringLocalizer<Resource> Localizer
+@inject HttpClient _httpClient
+
+@if (IsBusy)
+{
+    <McBusyIndicator />
+}
+
+@if (IsAllowed)
+{
+    <div class="home-app">
+        <aside class="home-nav-menu">
+            <!-- Company Icon -->
+            <div class="company-icon">
+                <img src="/LOGO/SENA - V2 Logo5.png" alt="Company Icon">
+            </div>
+            <nav>
+                <div class="nav-links-container">
+                    <button class="nav-link @(ActivePageService.ActivePage == "Home" ? "nav-link-active" : "")" @onclick='() => SetActivePage("Home")'>
+                        <span class="iconify" data-icon="oi:home"></span>
+                        <span class="nav-text">Home</span>
+                    </button>
+                    <button class="nav-link @(ActivePageService.ActivePage == "Appointment" ? "nav-link-active" : "")" @onclick='() => SetActivePage("Appointment")'>
+                        <span class="iconify" data-icon="oi:calendar"></span>
+                        <span class="nav-text">Appointment</span>
+                    </button>
+                    <button class="nav-link @(ActivePageService.ActivePage == "Queue" ? "nav-link-active" : "")" @onclick='() => SetActivePage("Queue")'>
+                        <span class="iconify" data-icon="oi:list-rich"></span>
+                        <span class="nav-text">Queue</span>
+                    </button>
+                    <button class="nav-link @(ActivePageService.ActivePage == "Documents" ? "nav-link-active" : "")" @onclick='() => SetActivePage("Documents")'>
+                        <span class="iconify" data-icon="oi:file"></span>
+                        <span class="nav-text">Documents</span>
+                    </button>
+                    <button class="nav-link @(ActivePageService.ActivePage == "Profile" ? "nav-link-active" : "")" @onclick='() => SetActivePage("Profile")'>
+                        <span class="iconify" data-icon="oi:person"></span>
+                        <span class="nav-text">Profile</span>
+                    </button>
+                    <!-- Add more links as needed -->
+                </div>
+            </nav>
+        </aside>
+        <main class="home-main-content">
+            @if (ActivePageService.ActivePage == "Home")
+            {
+                <HomePageView />
+            }
+            else if (ActivePageService.ActivePage == "Appointment")
+            {
+                <AppointmentsPageView />
+            }
+            else if (ActivePageService.ActivePage == "Queue")
+            {
+                <PatientQueueNumPageView />
+            }
+            else if (ActivePageService.ActivePage == "Documents")
+            {
+                <DocumentsPageView />
+            }
+            else if (ActivePageService.ActivePage == "Profile")
+            {
+                <UserProfileSettingPageView />
+            }
+        </main>
+    </div>
+}
+else
+{
+    <h1>@Trans.GetStr(Localizer, "PAGE_NAV_NotLoggedIn", "You are not logged in. Redirecting to login page in 5 seconds...")</h1>
+}

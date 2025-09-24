@@ -1,0 +1,195 @@
+﻿@page "/appointmentlist"
+@using System
+@using Blazored.LocalStorage
+@using Telerik.Blazor.Components
+@using Telerik.Blazor
+@inject ActivePageService ActivePageService
+@inherits McComponentBase
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IModalService Modal
+@inject IConfiguration Configuration
+@inject ILocalStorageService LocalStorage
+@inject ISyncLocalStorageService LocalStorageSync
+@inject IJSRuntime JSRuntime;
+@inject IStringLocalizer<Resource> Localizer
+@inject HttpClient _httpClient
+
+@if (IsBusy)
+{
+    <div class="overlay">
+        <McBusyIndicator />
+    </div>
+}
+
+@if (IsAllowed)
+{
+    <div class="container-appointment">
+        <h1>Appointment List</h1>
+        <!-- Book New Appointment Button -->
+        <div class="book-new-appointment">
+            <button class="btn book-new-appointment" @onclick="NavigateToBookAppointment">Book New Appointment</button>
+        </div>
+
+        <!-- Tabs Section -->
+        <div class="tabs">
+            <button class="tab-button @GetTabClass(showUpcomingAppointments)" @onclick="ShowUpcomingAppointments">Upcoming</button>
+            <button class="tab-button @GetTabClass(showPastAppointments)" @onclick="ShowPastAppointments">Past</button>
+            <button class="tab-button @GetTabClass(showCanceledAppointments)" @onclick="ShowCanceledAppointments">Canceled</button>
+        </div>
+
+        <div class="appointments-container">
+            <div class="appointments-column">
+                @if (showUpcomingAppointments)
+                {
+                    <h2>Upcoming Appointments</h2>
+                    <div class="appointments-list-scroll">
+                        <section class="appointments-section" id="upcomingAppointments">
+                            @if (!upcomingAppointments.Any())
+                            {
+                                <p>No upcoming appointments.</p>
+                            }
+                            else
+                            {
+                                @foreach (var appointment in upcomingAppointments)
+                                {
+                                    <div class="appointment-card upcoming">
+                                        <div class="appointment-details">
+                                            <p><strong>Date & Time:</strong> @appointment.StartDateTime.ToString("MMM dd, yyyy h:mm tt")</p>
+                                            <p><strong>Doctor:</strong> @GetDoctorName(appointment.ServiceUnitId)</p>
+                                            <p><strong>Description:</strong> @appointment.AdditionalInfo</p>
+                                            <p><strong>Specialty:</strong> @GetDepartmentName(appointment.Speciality)</p>
+                                            <p><strong>Status:</strong> @GetStatus(appointment)</p>
+                                        </div>
+                                        <div class="appointment-side">
+                                            <div class="appointment-qr-code">
+                                                <TelerikQRCode Value="@GlobalData.PatientNRIC" />
+                                            </div>
+                                            <div class="appointment-actions">
+                                                <button class="btn reschedule" @onclick="() => ShowRescheduleModal(appointment.PkID)">Reschedule</button>
+                                                <button class="btn cancel" @onclick="() => ShowCancelModal(appointment.PkID)">Cancel</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </section>
+                    </div>
+                }
+                else if (showPastAppointments)
+                {
+                    <h2>Past Appointments</h2>
+                    <div class="appointments-list-scroll">
+                        <section class="appointments-section" id="pastAppointments">
+                            @foreach (var appointment in pastAppointments)
+                            {
+                                <div class="appointment-card past">
+                                    <div class="appointment-details">
+                                        <p><strong>Date & Time:</strong> @appointment.StartDateTime.ToString("MMM dd, yyyy h:mm tt")</p>
+                                        <p><strong>Doctor:</strong> @GetDoctorName(appointment.ServiceUnitId)</p>
+                                        <p><strong>Description:</strong> @appointment.AdditionalInfo</p>
+                                        <p><strong>Specialty:</strong> @GetDepartmentName(appointment.Speciality)</p>
+                                        <p><strong>Status:</strong> @GetStatus(appointment)</p>
+                                    </div>
+                                </div>
+                            }
+                        </section>
+                    </div>
+                }
+                else if (showCanceledAppointments)
+                {
+                    <h2>Canceled Appointments</h2>
+                    <div class="appointments-list-scroll">
+                        <section class="appointments-section" id="canceledAppointments">
+                            @foreach (var appointment in canceledAppointments)
+                            {
+                                <div class="appointment-card canceled">
+                                    <div class="appointment-details">
+                                        <p><strong>Date & Time:</strong> @appointment.StartDateTime.ToString("MMM dd, yyyy h:mm tt")</p>
+                                        <p><strong>Doctor:</strong> @GetDoctorName(appointment.ServiceUnitId)</p>
+                                        <p><strong>Description:</strong> @appointment.AdditionalInfo</p>
+                                        <p><strong>Specialty:</strong> @GetDepartmentName(appointment.Speciality)</p>
+                                        <p><strong>Status:</strong> @GetStatus(appointment)</p>
+                                        <p><strong>Cancel Reason:</strong> @appointment.CancelReason</p>
+                                    </div>
+                                </div>
+                            }
+                        </section>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Cancel Appointment Modal -->
+    @if (showCancelModal)
+    {
+        <div class="modal-overlay">
+            <div class="modal">
+                @if (!showOtpVerification)
+                {
+                    <h3>Cancel Appointment</h3>
+                    <p>Please provide a reason for canceling your appointment and click "Send OTP" to receive a verification code on your phone.</p>
+                    <textarea @bind="cancelReason" placeholder="Enter reason for cancellation"></textarea>
+                    <div class="modal-actions">
+                        <button class="btn confirm @(string.IsNullOrWhiteSpace(cancelReason) ? "disabled" : "enabled")" @onclick="SendOtp" disabled="@string.IsNullOrWhiteSpace(cancelReason)">Send OTP</button>
+                        <button class="btn cancel" @onclick="CloseCancelModal">Cancel</button>
+                    </div>
+                }
+                else
+                {
+                    <h3>OTP Verification</h3>
+                    <p>We have sent an OTP to your phone number @GlobalData.PatientMobileNumber. Please enter the OTP below to confirm the cancellation.</p>
+                    <input type="text" @bind="enteredOtpCode" placeholder="Enter OTP" />
+                    <p class="error-message">@otpErrorMessage</p>
+                    <div class="modal-actions">
+                        <button class="btn verify" @onclick="VerifyOtp">Verify OTP</button>
+                        <button class="btn cancel" @onclick="CloseCancelModal">Cancel</button>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+
+    <!-- Reschedule Appointment Modal -->
+    @if (showRescheduleModal)
+    {
+        <div class="modal-overlay">
+            <div class="modal">
+                @if (!showRescheduleOtpVerification)
+                {
+                    <h3>Reschedule Appointment</h3>
+                    <p>Please provide a reason for rescheduling your appointment, select a new date, and click "Send OTP" to receive a verification code on your phone.</p>
+                    <textarea @bind="rescheduleReason" placeholder="Enter reason for rescheduling"></textarea>
+                    <TelerikCalendar @bind-Value="rescheduleDate" Min="new DateTime(2023, 1, 1)" Max="new DateTime(2025, 12, 31)" />
+                    <p>Selected Date: @rescheduleDate</p>
+                    <div class="modal-actions">
+                        <button class="btn confirm @(string.IsNullOrWhiteSpace(rescheduleReason) ? "disabled" : "enabled")" @onclick="SendRescheduleOtp" disabled="@string.IsNullOrWhiteSpace(rescheduleReason)">Send OTP</button>
+                        <button class="btn cancel" @onclick="CloseRescheduleModal">Cancel</button>
+                    </div>
+                }
+                else
+                {
+                    <h3>OTP Verification</h3>
+                    <p>We have sent an OTP to your phone number @GlobalData.PatientMobileNumber. Please enter the OTP below to confirm the rescheduling.</p>
+                    <input type="text" @bind="enteredRescheduleOtpCode" placeholder="Enter OTP" />
+                    <p class="error-message">@rescheduleOtpErrorMessage</p>
+                    <div class="modal-actions">
+                        <button class="btn verify" @onclick="VerifyRescheduleOtp">Verify OTP</button>
+                        <button class="btn cancel" @onclick="CloseRescheduleModal">Cancel</button>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+}
+else
+{
+    <h1>@Trans.GetStr(Localizer, "PAGE_NAV_NotLoggedIn", "You are not logged in. Redirecting to login page in 5 seconds...")</h1>
+}
+
+@code {
+    private string GetTabClass(bool isActive) => isActive ? "active" : "";
+    private DateTime SelectedDate = DateTime.Today;
+}

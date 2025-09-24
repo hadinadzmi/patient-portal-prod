@@ -1,0 +1,127 @@
+﻿@page "/documents"
+@using System.ComponentModel.DataAnnotations
+@using Blazored.LocalStorage
+
+@inherits McComponentBase
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+@inject IModalService Modal
+@inject IConfiguration Configuration
+@inject ILocalStorageService LocalStorage
+@inject ISyncLocalStorageService LocalStorageSync
+@inject IStringLocalizer<Resource> Localizer
+@inject HttpClient _httpClient
+
+@if (IsBusy)
+{
+    <div class="overlay">
+        <McBusyIndicator />
+    </div>
+}
+
+<div class="home-app">
+    <main class="home-main-content">
+        <h1>Documents</h1>
+        @if (selectedDocumentType == null)
+        {
+            <div class="documents-container">
+                @foreach (var docType in documentTypes)
+                {
+                    <a class="document-link" @onclick="() => ShowDocumentsByType(docType.Key)">
+                        <section class="document-section">
+                            <img src="@docType.Value.Icon" alt="@docType.Value.Name Icon" class="document-icon" />
+                            <h2>@docType.Value.Name</h2>
+                        </section>
+                    </a>
+                }
+            </div>
+        }
+        else
+        {
+            <button class="btn btn-link" @onclick="BackToTypeSelection">← Back</button>
+            <section>
+                <h2>@documentTypes[selectedDocumentType.Value].Name</h2>
+                @if (filteredDocuments?.Count > 0)
+                {
+                    <div class="document-content">
+                        <input type="text"
+                               class="form-control mb-3"
+                               placeholder="Search by name or date..."
+                               @bind="searchText"
+                               @bind:event="oninput" />
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Document Name</th>
+                                    <th style="cursor:pointer;" @onclick="ToggleDateSort">
+                                        Date
+                                        @if (sortDateAsc)
+                                        {
+                                            <span title="Ascending">&#9650;</span> <!-- Up arrow -->
+                                        }
+                                        else
+                                        {
+                                            <span title="Descending">&#9660;</span> <!-- Down arrow -->
+                                        }
+                                    </th>
+                                    <th>Download</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var doc in GetFilteredDocuments())
+                                {
+                                    <tr>
+                                        <td>@doc.Name</td>
+                                        <td>@doc.DateTimeCreatedStr</td>
+                                        <td>
+                                            @if (selectedDocumentType == 137) // Outstanding Bills
+                                            {
+                                                <button class="btn btn-view" @onclick="() => ViewDocument(doc)">
+                                                    View
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-download" @onclick="() => DownloadDocument(doc)">
+                                                    Download
+                                                </button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <p>No documents found for this type.</p>
+                }
+            </section>
+        }
+    </main>
+</div>
+
+@if (showDocumentModal && documentContentToView != null)
+{
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <button class="btn btn-close" @onclick="() => showDocumentModal = false">Close</button>
+            <iframe src="data:application/pdf;base64,@Convert.ToBase64String(documentContentToView)" width="100%" height="600px"></iframe>
+            <div class="watermark">Confidential - Screenshots are discouraged</div>
+        </div>
+    </div>
+}
+
+@* JS interop for file download *@
+<script>
+    window.blazorDownloadFile = (fileName, contentType, base64Data) => {
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = "data:" + contentType + ";base64," + base64Data;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+</script>
